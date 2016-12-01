@@ -1,0 +1,15 @@
+# YAMA config file
+#
+
+# IP address to bind
+host: 0.0.0.0
+
+# Port to bind
+port: 80
+
+# Backend type to load URL list
+# Options: file
+backend_type: file
+
+# Timeout for the web service requests
+timeout: 2000 

@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+from yama import server
+from yama import config
+
+if __name__ == "__main__":
+    conf = config.get_config()
+    server = server
+    server.start(host=conf['host'], port=conf['port'])

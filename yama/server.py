@@ -9,6 +9,8 @@
 """
 from bottle import run, route, request
 
+import urlquery
+
 @route('/status')
 def status():
    response = { "status": "ok" }
@@ -19,14 +21,10 @@ def reload_config():
     response = { "status": "config reloaded" }
     return response
 
-@route('/urlinfo/1/<hostname>\:<port:int>/<path_query:re:.*>')
-def urlinfo(hostname, port, path_query):
-    # we have to split the full path request
-    # in order to trim 'urlinfo/1/<hostname>:<port>
-    path = str(request.fullpath).split(':',1)[1].split('/',1)[1]
-    # The query does not have any character after '#'
-    query = str(request.query_string)
-    response = { "hostname": str(hostname), "port": port, "full_path": path+"?"+query }
+@route('/urlinfo/1/<hostname>\:<port:int>/<path:re:.*>')
+def urlinfo(hostname, port, path):
+    url = { "hostname": str(hostname), "port": port, "path": path }
+    response = urlquery.process_url(url, 'url')
     return response
 
 def start(host, port):

@@ -7,9 +7,15 @@ host: 0.0.0.0
 # Port to bind
 port: 80
 
-# Backend type to load URL list
-# Options: file
-backend_type: file
+#### DATABASE #####
+# DB hostname
+db_hostname: 'localhost'
 
-# Timeout for the web service requests
-timeout: 2000 
+# DB username
+db_username: 'yama'
+
+# DB passwd
+db_passwd: 'yama'
+
+# DB name
+db_name: 'yama'

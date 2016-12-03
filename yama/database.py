@@ -1,0 +1,57 @@
+import sys
+import datetime
+
+import MySQLdb
+
+import config
+
+def filter_string(string):
+    # TODO
+    string_filtered = str(string)
+    return string
+
+def connect_db():
+    conf = config.get_config()
+
+    try:
+        db = MySQLdb.connect(host=str(conf['db_hostname']),
+                              user=str(conf['db_username']),
+                              passwd=str(conf['db_passwd']),
+                              db=str(conf['db_name']))
+    except Exception as e:
+        print e
+        return None
+
+    return db
+
+
+def query_url(url, table_name):
+    #Filter strings to trim non-permit chars
+    f_hostname = filter_string(url['hostname'])
+    f_path = filter_string(url['path'])
+    f_table_name = filter_string(table_name)
+    # stringify port number
+    port = str(url['port'])
+
+    db = connect_db()
+    if db == None:
+        print "Error connecting database. Exiting.."
+        exit(1)
+    else:
+        cur = db.cursor() 
+        c = cur.execute("SELECT count(id) FROM " + f_table_name + 
+                        " where hostname='" + f_hostname + 
+                        "' and port =" + port + 
+                        " and path = '" + f_path + 
+                        "' ;")
+        if c==1:
+            row = cur.fetchone()
+            cur.close()
+            db.close()
+            if int(row[0]) == 1:
+                return True
+            else:
+                return False
+        else:
+            False
+

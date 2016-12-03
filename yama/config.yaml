@@ -19,3 +19,7 @@ db_passwd: 'yama'
 
 # DB name
 db_name: 'yama'
+
+#### SHARD #######
+# DB hostname for shards
+shard_db_hostname: 'localhost'

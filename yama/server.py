@@ -10,6 +10,9 @@
 from bottle import run, route, request
 
 import urlquery
+import shard
+
+SHARDS_DICT = shard.load_shard_dict()    
 
 @route('/status')
 def status():
@@ -24,7 +27,10 @@ def reload_config():
 @route('/urlinfo/1/<hostname>\:<port:int>/<path:re:.*>')
 def urlinfo(hostname, port, path):
     url = { "hostname": str(hostname), "port": port, "path": path }
-    response = urlquery.process_url(url, 'url')
+    host_and_table = shard.get_shard(SHARDS_DICT, url)
+    db_hostname = host_and_table[0]
+    table_name = host_and_table[1]
+    response = urlquery.process_url(url, db_hostname, table_name)
     return response
 
 def start(host, port):

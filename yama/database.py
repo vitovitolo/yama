@@ -1,6 +1,3 @@
-import sys
-import datetime
-
 import MySQLdb
 
 import config
@@ -10,11 +7,11 @@ def filter_string(string):
     string_filtered = str(string)
     return string
 
-def connect_db():
+def connect_db(db_hostname):
     conf = config.get_config()
 
     try:
-        db = MySQLdb.connect(host=str(conf['db_hostname']),
+        db = MySQLdb.connect(host=str(db_hostname),
                               user=str(conf['db_username']),
                               passwd=str(conf['db_passwd']),
                               db=str(conf['db_name']))
@@ -25,7 +22,7 @@ def connect_db():
     return db
 
 
-def query_url(url, table_name):
+def query_url(url, db_hostname, table_name):
     #Filter strings to trim non-permit chars
     f_hostname = filter_string(url['hostname'])
     f_path = filter_string(url['path'])
@@ -33,7 +30,7 @@ def query_url(url, table_name):
     # stringify port number
     port = str(url['port'])
 
-    db = connect_db()
+    db = connect_db(db_hostname)
     if db == None:
         print "Error connecting database. Exiting.."
         exit(1)

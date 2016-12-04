@@ -34,7 +34,7 @@ def process_url(url, db_hostname, table_name):
         is_malware = exists_in_database(url, db_hostname, table_name)
         if is_malware:
             write_to_cache(url, table_name)
-            return compose_reponse(is_malware)
+            return compose_response(is_malware)
         else:
             return compose_response(is_malware)
 

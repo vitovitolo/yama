@@ -41,14 +41,34 @@ def query_url(url, db_hostname, table_name):
                         "' and port =" + port + 
                         " and path = '" + f_path + 
                         "' ;")
-        if c==1:
+        if c == 1:
             row = cur.fetchone()
             cur.close()
             db.close()
-            if int(row[0]) == 1:
+            if int(row[0]) >= 1:
                 return True
             else:
                 return False
         else:
             False
+
+def insert_url(url, db_hostname, table_name):
+    db = connect_db(db_hostname)
+    if db == None:
+        print "Error connecting database. Exiting.."
+        return False
+    else:
+        cur = db.cursor()
+        c = cur.execute("INSERT INTO " + str(table_name) + 
+                       " (hostname, port, path) values ('" + 
+                       str(url['hostname']) + "'," + 
+                       str(url['port']) + ",'" + 
+                       str(url['path']) + "') ;")
+        if c==1:
+            cur.close()
+            db.commit()
+            db.close()
+            return True
+        else:
+            return False
 

@@ -7,9 +7,13 @@ host: 0.0.0.0
 # Port to bind
 port: 80
 
-#### DATABASE #####
+#### MAIN DATABASE #####
 # DB hostname
 db_hostname: 'localhost'
+
+#### SHARD DATABASE ####
+# DB hostname for shards
+shard_db_hostname: 'localhost'
 
 # DB username
 db_username: 'yama'
@@ -20,6 +24,3 @@ db_passwd: 'yama'
 # DB name
 db_name: 'yama'
 
-#### SHARD #######
-# DB hostname for shards
-shard_db_hostname: 'localhost'

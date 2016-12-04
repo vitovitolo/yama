@@ -1,11 +1,20 @@
 import os.path
 import yaml
 
+CONFIG_FILE='/etc/yama/config.yaml'
 
 def get_config():
     try:
-        return yaml.safe_load(open('/etc/yama/config.yaml'))
+        return yaml.safe_load(open(CONFIG_FILE))
     except Exception as e:
         print e
-        exit(1)
+
+def check_config():
+    try:
+        conf = yaml.safe_load(open(CONFIG_FILE))
+    except Exception as e:
+        print "Could not load config file due to: "+str(e)
+        return False
+
+    return True
 

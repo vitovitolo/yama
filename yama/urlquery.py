@@ -5,8 +5,8 @@
 import database
 
 
-def compose_response(url, is_malware=False):
-    response = { "malware" : is_malware, "hostname": url['hostname'], "port": url['port'], "path": url['path'] }
+def compose_response(is_malware=False):
+    response = { "malware" : str(is_malware) }
     return response
 
 def exists_in_cache(url, table_name):
@@ -29,12 +29,12 @@ def write_to_cache(url, table_name):
     
 def process_url(url, db_hostname, table_name):
     if exists_in_cache(url, table_name):
-	return compose_response(url, is_malware=True)
+	return compose_response(is_malware=True)
     else:
         is_malware = exists_in_database(url, db_hostname, table_name)
         if is_malware:
             write_to_cache(url, table_name)
-            return compose_reponse(url, is_malware)
+            return compose_reponse(is_malware)
         else:
-            return compose_response(url, is_malware)
+            return compose_response(is_malware)
 

@@ -4,8 +4,8 @@ import config
 
 def filter_string(string):
     # TODO
-    string_filtered = str(string)
-    return string
+    string_filtered = string
+    return str(string)
 
 def connect_db(db_hostname):
     conf = config.get_config()

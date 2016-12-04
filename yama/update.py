@@ -5,11 +5,14 @@
 
 import database
 
-def compose_add_response(is_inserted=False):
-    response = { "status": str(is_inserted) }
+def compose_add_response(status=False):
+    response = { "status": str(status) }
     return response
 
-def add_url(url, db_hostname, table_name):
-    is_inserted = database.insert_url(url, db_hostname, table_name)
-    # TODO: If not updated, raise 501 or 502 HTTP codes 
-    return compose_add_response(is_inserted)
+def update_url(url, db_hostname, table_name, operation):
+    status = database.update_url(url, db_hostname, table_name, operation)
+    # TODO
+    # Add op: If not updated, raise 501 or 502 HTTP codes 
+    # Del op: Delete from all caches 
+    return compose_add_response(status)
+

@@ -52,19 +52,33 @@ def query_url(url, db_hostname, table_name):
         else:
             False
 
-def insert_url(url, db_hostname, table_name):
+def update_url(url, db_hostname, table_name, operation):
+    #Filter strings to trim non-permit chars
+    f_table_name = str(table_name)
+    f_hostname = filter_string(url['hostname'])
+    f_path = filter_string(url['path'])
+    # stringify port number
+    port = str(url['port'])
+
+    if operation == "add":
+        sql = ("INSERT INTO " + f_table_name + 
+               " (hostname, port, path) values ('" + 
+               f_hostname + "'," + port + ",'" + f_path + "') ;")
+    elif operation == "del" :
+        sql = ("DELETE FROM " + f_table_name + 
+               " where hostname = '" + f_hostname + 
+               "' and port = " + port + 
+               " and path = '" + f_path + "' ;")
+    else:
+        return False
     db = connect_db(db_hostname)
     if db == None:
         print "Error connecting database. Exiting.."
         return False
     else:
         cur = db.cursor()
-        c = cur.execute("INSERT INTO " + str(table_name) + 
-                       " (hostname, port, path) values ('" + 
-                       str(url['hostname']) + "'," + 
-                       str(url['port']) + ",'" + 
-                       str(url['path']) + "') ;")
-        if c==1:
+        c = cur.execute(sql) 
+        if c>=1:
             cur.close()
             db.commit()
             db.close()

@@ -25,7 +25,7 @@ def write_to_cache(url, table_name):
     # TODO: cache_conn = hiredis(...)
     # cache_conn.write(url)
     # cache_conn.close()
-    print "TODO: write " + str(url['hostname']) + "in cache"
+    return True
     
 def process_url(url, db_hostname, table_name):
     if exists_in_cache(url, table_name):

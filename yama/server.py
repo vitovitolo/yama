@@ -34,15 +34,15 @@ def urlinfo(hostname, port, path):
     response = urlquery.process_url(url, db_hostname, table_name)
     return response
 
-@route('/addurl/1/<hostname>\:<port:int>/<path:re:.*>')
-def add(hostname, port, path):
+@route('/urlupdate/<operation:re:(add|del)?>/<hostname>\:<port:int>/<path:re:.*>')
+def add(operation, hostname, port, path):
     url = { "hostname": str(hostname), "port": port, "path": path }
     host_and_table = shard.get_shard(SHARDS_DICT, url)
     db_hostname = host_and_table[0]
     table_name = host_and_table[1]
-    response = update.add_url(url, db_hostname, table_name)
+    response = update.update_url(url, db_hostname, table_name, operation)
     return response
-    
+ 
 def start(host, port):
     run(host=host, port=port)
 

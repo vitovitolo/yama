@@ -7,6 +7,7 @@ CREATE TABLE `yama`.`url_s0` (
 	  `hostname` varchar(255) NOT NULL,
 	  `port` smallint(1) unsigned NOT NULL DEFAULT 80,
 	  `path` varchar(2048) NOT NULL,
+	  `is_malware` boolean NOT NULL DEFAULT TRUE,
 	  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ; 
 

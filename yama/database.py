@@ -36,12 +36,12 @@ def query_url(url, db_hostname, table_name):
         exit(1)
     else:
         cur = db.cursor() 
-        c = cur.execute("SELECT count(id) FROM " + f_table_name + 
+        c = cur.execute("SELECT is_malware FROM " + f_table_name + 
                         " where hostname='" + f_hostname + 
                         "' and port =" + port + 
                         " and path = '" + f_path + 
                         "' ;")
-        if c == 1:
+        if c >= 1:
             row = cur.fetchone()
             cur.close()
             db.close()
@@ -85,4 +85,33 @@ def update_url(url, db_hostname, table_name, operation):
             return True
         else:
             return False
+
+
+def load_shard(db_hostname):
+    """
+    Load from Database the shard map structure.
+    Returns a dict of dicts with this format:
+    shards = { 0: {'hostname': 'db_node0','table_name':'url_s0'}, 1: {'hostname': 'db_node1', 'table_name': 'url_s1'}  }
+    On error returns an empty dict 
+    """
+
+    shards = {}
+
+    db = connect_db(db_hostname)
+    if db == None:
+        print "Error connecting database. Exiting.."
+        return False
+    else:
+        cur = db.cursor()
+        c = cur.execute("SELECT * from shards;")
+        if c>=1:
+            row = cur.fetchone()
+            while row is not None:
+                #composing shards dict
+                shards[int(row[0])] = { 'hostname' : row[1], 'table_name': row[2] }
+                row = cur.fetchone()
+        cur.close()
+        db.close()
+
+    return shards 
 

@@ -11,10 +11,6 @@ port: 80
 # DB hostname
 db_hostname: 'localhost'
 
-#### SHARD DATABASE ####
-# DB hostname for shards
-shard_db_hostname: 'localhost'
-
 # DB username
 db_username: 'yama'
 
@@ -24,3 +20,25 @@ db_passwd: 'yama'
 # DB name
 db_name: 'yama'
 
+#### SHARD DATABASE ####
+# DB hostname for shards
+shard_db_hostname: 'localhost'
+
+# DB username for shards
+shard_db_username: 'yama'
+
+# DB passwd for shards
+shard_db_passwd: 'yama'
+
+# DB name for shards
+shard_db_name: 'yama'
+
+#### CACHE #####
+cache_hostname: 'localhost'
+
+# Cache max number of URL to store
+# Depends on your server memory 
+cache_max_urls: 5000
+
+# URL Time To Live in seconds
+cache_url_ttl: 100

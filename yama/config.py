@@ -13,8 +13,6 @@ def check_config():
     try:
         conf = yaml.safe_load(open(CONFIG_FILE))
     except Exception as e:
-        print "Could not load config file due to: "+str(e)
         return False
-
     return True
 

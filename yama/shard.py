@@ -1,28 +1,42 @@
 import config
 import database
 
-# Eg: shards= { 3: ('db_node3','url_s3'), 1: ('db_node1','url_s1'), 2:('db_node2','url_s2') }
 
-def load_shard_dict():
+def load_shard_from_db():
+    """
+    Load from Database the shard map structure.
+    Returns a dict of dicts with this format:
+    shards = { 0: {'hostname': 'db_node0','table_name':'url_s0'}, 1: {'hostname': 'db_node1', 'table_name': 'url_s1'}  }
+    On error returns an empty dict 
+    """
     conf = config.get_config()
-    db = database.connect_db(conf['shard_db_hostname'])
-    cur = db.cursor()
-    cur.execute("SELECT * from shards;")
     shards= {}
-    row = cur.fetchone()
-    while row is not None:
-        #set the node hostname
-        shards[int(row[0])] = (row[1],row[2])
+
+    try:
+        db = database.connect_db(conf['shard_db_hostname'])
+        cur = db.cursor()
+        cur.execute("SELECT * from shards;")
         row = cur.fetchone()
-    cur.close()
-    db.close()
+
+    except Exception as e:
+        print e
+
+    finally:
+        while row is not None:
+            #composing shards dict
+            shards[int(row[0])] = { 'hostname' : row[1], 'table_name': row[2] }
+            row = cur.fetchone()
+        cur.close()
+        db.close()
+
     return shards
 
-"""
-Hash function for shading scheme
-returns hostname and table_name
-"""
 
 def get_shard(shards, url):
+    """
+    Hash function for shading scheme
+    returns a dict with hostname and table name
+    Eg: s = { 'hostname': 'node1', 'table_name': 'url_s1'}
+    """
     return shards[hash(str(url['hostname'])+str(url['port'])+str(url['path'])) % len(shards)]
 

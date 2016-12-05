@@ -181,16 +181,17 @@ This is the flow for each request asking for a URL
 ### Database Replication
 This system is designed to be replicated by master-slave. With MySQL you can replicate per table or per database. This provides more flexibility when replicating.
 
-
 Master Cluster could have all your dataset because I estimated not too much updates in our URL list. Otherwise, the approach will be create one master cluster for each shard.
-Request per second
+
+### Request per second
 If yama server reaches the request per second limit you have to add one more yama node in each shard cluster.
-Database read limit
+
+### Database read limit
 The solution for reaches the read per second limit in the database is add more Database slave nodes in each Datastore Cluster.
 Database write limit
 This scenario is more complex but not impossible to board. If the system reaches the write limit, the solution is to divide the Master Cluster in shards. This project doesn’t provide a out-of-the box solution if the system reaches this limit.
-Shard size
-In the worst scenario yama needs to execute a full scan to a table in a database. The more dataset you have in this table, the more time to process one URL.
 
+###Shard size
+In the worst scenario yama needs to execute a full scan to a table in a database. The more dataset you have in this table, the more time to process one URL.
 
 I recommend not to have more than 1 million row in each table. This limit will assure your performance. The over provision described above try to avoid this problem. The recommended number of shard is 1000. With 1 million URLs in each shard and 1000 shards in your massive cluster, you could handle over [1 billion URLs](http://www.internetlivestats.com/total-number-of-websites/). This is approximately the total number of websites on the internet in 2016. 

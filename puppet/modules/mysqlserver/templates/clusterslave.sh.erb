@@ -1,0 +1,19 @@
+#!/bin/sh
+#configura el mysql local como slave de un cluster
+mysql -uroot -p<%=@mysql_pass %> -e "change master to master_host='<%=@mysql_master %>', master_user='replication', master_password='slave', master_port=<%=@mysql_port %>;";
+mysql -uroot -p<%=@mysql_pass %> -e "start slave;"
+sleep 1
+mysql -uroot -p<%=@mysql_pass %> -e "stop slave;"
+sleep 1
+mysql -uroot -p<%=@mysql_pass %> -e "set global slow_query_log = 'OFF';"
+sleep 1
+mysql -uroot -p<%=@mysql_pass %> -e "start slave;"
+sleep 1
+mysql -uroot -p<%=@mysql_pass %> -e "set global slow_query_log = 'ON';";
+sleep 1
+mysql -uroot -p<%=@mysql_pass %> -e "stop slave;"
+sleep 1
+mysql -uroot -p<%=@mysql_pass %> -e "start slave;"
+sleep 1
+mysql -uroot -p<%=@mysql_pass %> -e "show slave status\G";
+

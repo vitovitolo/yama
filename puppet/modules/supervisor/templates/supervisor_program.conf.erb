@@ -1,0 +1,12 @@
+[program:<%=@programname%>]
+directory=<%=@program_path>
+command=<%=@program_cmd>
+redirect_stderr=true
+stderr_logfile=<%=@program_log_stderr>
+stdout_logfile=<%=@program_log_stdout>
+autostart=true
+autorestart=true
+stopsignal=KILL
+exitcodes=
+startsecs=1
+startretries=10

@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $# -lt 1 ]; then
+	echo "Usage: ${0} ApplicationName"
+	echo "       creates database ApplicationName, user/pass = ApplicationName/ApplicationName with privileges over this database"
+	exit -1
+fi
+APPNAME="${1}"
+DBNAME="${APPNAME}"
+DBUSER="${APPNAME}"
+DBPASS="${APPNAME}"
+echo "CREATE DATABASE ${DBNAME}";
+mysql -uroot -p<%=@mysql_pass%> -e "CREATE DATABASE ${APPNAME}";
+echo "GRANT ALL PRIVILEGES on \`${DBNAME}\`.* TO '${DBUSER}'@'%'         IDENTIFIED BY '${DBPASS}'";
+mysql -uroot -p<%=@mysql_pass%> -e "GRANT ALL PRIVILEGES on \`${DBNAME}\`.* TO '${DBUSER}'@'%'         IDENTIFIED BY '${DBPASS}'";
+echo "GRANT ALL PRIVILEGES on \`${DBNAME}\`.* TO '${DBUSER}'@'localhost' IDENTIFIED BY '${DBPASS}'";
+mysql -uroot -p<%=@mysql_pass%> -e "GRANT ALL PRIVILEGES on \`${DBNAME}\`.* TO '${DBUSER}'@'localhost' IDENTIFIED BY '${DBPASS}'";
+echo "FLUSH PRIVILEGES";
+mysql -uroot -p<%=@mysql_pass%> -e "FLUSH PRIVILEGES";

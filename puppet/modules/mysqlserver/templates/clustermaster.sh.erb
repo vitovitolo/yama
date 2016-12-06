@@ -1,0 +1,6 @@
+#!/bin/sh
+#prepara el mysql local para ser master de un cluster
+mysql -uroot -p<%=@mysql_pass %> -e "GRANT ALL on *.* TO 'root'@'%' IDENTIFIED BY '<%=@mysql_pass %>'";
+mysql -uroot -p<%=@mysql_pass %> -e "GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO replication@'%' IDENTIFIED BY 'slave'";
+mysql -uroot -p<%=@mysql_pass %> -e "FLUSH PRIVILEGES";
+

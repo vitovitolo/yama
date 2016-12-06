@@ -1,0 +1,6 @@
+#file managed by puppet
+<% if @grant_db != "*" -%>
+CREATE DATABASE IF NOT EXISTS <%= @grant_db %>;
+<% end -%>
+GRANT <%= @grant_privileges %> ON <%= @grant_db %>.* TO '<%=@grant_user %>'@'%' IDENTIFIED BY '<%=@grant_password %>';
+FLUSH PRIVILEGES;

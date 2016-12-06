@@ -1,0 +1,76 @@
+[client]
+port = <%= @mysql_port %>
+socket = /var/run/mysqld/mysqld.sock
+
+[mysqld_safe]
+socket = /var/run/mysqld/mysqld.sock
+nice = 0
+
+[mysqld]
+#transaction-isolation = READ-COMMITTED
+#transaction-isolation = REPEATABLE-READ
+user = mysql
+pid-file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+bind-address = <%=@mysql_bindaddress%>
+port = <%= @mysql_port %>
+basedir = /usr
+datadir = <%= @mysql_datadir %>
+tmpdir = /tmp
+max_connections = 2000
+max_user_connections = 2000
+max_allowed_packet = 64M
+max_connect_errors = 4294967295
+#slow_query_log = ON
+
+#lc-messages = "<%= @mysql_language %>"
+#character_set_client = <%= @mysql_charset %>
+character_set_server = <%= @mysql_charset %>
+collation_server = utf8_general_ci
+expire_logs_days = 1
+
+connect_timeout = 3600
+net_read_timeout = 3600
+net_write_timeout = 3600
+
+log_bin_trust_function_creators
+default-storage-engine = <%= @mysql_motor %>
+
+server_id = <%= @mysql_server_id %>
+binlog_format = MIXED
+log_bin = mysql-bin
+max_binlog_size = 1G
+log_slave_updates
+sync_binlog = 0
+auto-increment-increment = <%=@mysql_server_count%>
+auto-increment-offset = <%=@mysql_server_id%>
+
+<% if @mysql_explicit_engine %>
+<%= @mysql_motor %>
+<%= @mysql_motor %>_locks_unsafe_for_binlog = 1
+<%= @mysql_motor %>_autoinc_lock_mode = 2
+<%= @mysql_motor %>_buffer_pool_size = <%= @mysql_maxmem %>M
+<%= @mysql_motor %> = ON
+<%= @mysql_motor %>_file_per_table
+<%= @mysql_motor %>_fast_shutdown = 2
+<%= @mysql_motor %>_open_files = 10000
+<%= @mysql_motor %>_thread_concurrency = 10 
+skip-innodb_doublewrite
+<% end %>
+
+# Logging
+#log=/var/run/mysqld/mysql.log
+#general_log = 0
+#general_log_file = /var/run/mysqld/mysql-queries.log
+query_cache_min_res_unit = 4096
+query_cache_type = 2
+query_cache_limit = 1048576
+query_cache_size = 0
+
+max_connect_errors = 2147483647
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet = 256M
+!includedir /etc/mysql/conf.d/

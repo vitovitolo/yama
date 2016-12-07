@@ -19,7 +19,6 @@ class yama
 		ensure  => directory,
 		owner   => "root",
 		group   => "root",
-		mode    => 755,
 		source  => 'puppet:///modules/yama/install_files',
 		links   => "follow",
 		recurse => true,

@@ -17,6 +17,7 @@ define supervisor::program (
 		start      => "/usr/bin/supervisorctl start $programname",
 		stop       => "/usr/bin/supervisorctl stop $programname",
 		status     => "/usr/bin/supervisorctl status $programname | grep -i running",
+		restart      => "/usr/bin/supervisorctl restart $programname",
 		require    => [File["$program_path"],File["$program_log_path"],File["/etc/supervisor/conf.d/$programname.conf"]],
 	}
 

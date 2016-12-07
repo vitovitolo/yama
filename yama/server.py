@@ -21,10 +21,11 @@ class Server:
 
     """
 
-    def __init__(self):
+    def __init__(self, config_file):
         self._app = Bottle()
         self._route()
-        self.shard_dict = shard.load_shard_from_db()
+        self.conf = config.Config(config_file).config
+        self.shard_dict = shard.load_shard_from_db(self.conf)
         self.maintenance_mode = False
 
     def _route(self):
@@ -54,25 +55,20 @@ class Server:
     def _urlinfo(self, hostname, port, path):
         url = { "hostname": str(hostname), "port": port, "path": path }
         s = shard.get_shard(self.shard_dict, url)
-        res = urlquery.process_url(url, s['hostname'], s['table_name'])
+        res = urlquery.process_url(url, s['hostname'], s['table_name'], self.conf)
         return res
 
     def _urlupdate(self, operation, hostname, port, path):
         url = { "hostname": str(hostname), "port": port, "path": path }
         s = shard.get_shard(self.shard_dict, url)
-        res = update.update_url(url, s['hostname'], s['table_name'], operation)
+        res = update.update_url(url, s['hostname'], s['table_name'], operation, self.conf)
         return res
 
     def start(self):
-        if not config.check_config():
-            print "Could not load config file. Exiting.."
+        if not self.shard_dict:
+            print "Could not load shard map from db"
         else:
-            conf = config.get_config()
-            if not self.shard_dict:
-                print "Could not load shard map from db"
-            else:
-                try:
-                    self._app.run(host=conf['host'], port=conf['port'])
-                except Exception as e:
-                    print e
-        exit(1)
+            try:
+                self._app.run(host=self.conf['host'], port=self.conf['port'])
+            except Exception as e:
+                print e

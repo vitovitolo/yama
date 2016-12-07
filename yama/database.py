@@ -1,14 +1,11 @@
 import MySQLdb
 
-import config
-
 def filter_string(string):
     # TODO
     string_filtered = string
     return str(string)
 
-def connect_db(db_hostname):
-    conf = config.get_config()
+def connect_db(db_hostname, conf):
 
     try:
         db = MySQLdb.connect(host=str(db_hostname),
@@ -22,7 +19,7 @@ def connect_db(db_hostname):
     return db
 
 
-def query_url(url, db_hostname, table_name):
+def query_url(url, db_hostname, table_name, conf):
     #Filter strings to trim non-permit chars
     f_hostname = filter_string(url['hostname'])
     f_path = filter_string(url['path'])
@@ -30,7 +27,7 @@ def query_url(url, db_hostname, table_name):
     # stringify port number
     port = str(url['port'])
 
-    db = connect_db(db_hostname)
+    db = connect_db(db_hostname, conf)
     if db == None:
         print "Error connecting database. Exiting.."
         exit(1)
@@ -52,7 +49,7 @@ def query_url(url, db_hostname, table_name):
         else:
             False
 
-def update_url(url, db_hostname, table_name, operation):
+def update_url(url, db_hostname, table_name, operation, conf):
     #Filter strings to trim non-permit chars
     f_table_name = str(table_name)
     f_hostname = filter_string(url['hostname'])
@@ -71,7 +68,7 @@ def update_url(url, db_hostname, table_name, operation):
                " and path = '" + f_path + "' ;")
     else:
         return False
-    db = connect_db(db_hostname)
+    db = connect_db(db_hostname, conf)
     if db == None:
         print "Error connecting database. Exiting.."
         return False
@@ -87,7 +84,7 @@ def update_url(url, db_hostname, table_name, operation):
             return False
 
 
-def load_shard(db_hostname):
+def load_shard(conf):
     """
     Load from Database the shard map structure.
     Returns a dict of dicts with this format:
@@ -97,7 +94,7 @@ def load_shard(db_hostname):
 
     shards = {}
 
-    db = connect_db(db_hostname)
+    db = connect_db(conf['db_hostname'], conf)
     if db == None:
         print "Error connecting database. Exiting.."
         return False

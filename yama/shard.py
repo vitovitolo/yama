@@ -1,11 +1,9 @@
-import config
 import database
 
 
-def load_shard_from_db():
-    conf = config.get_config()
+def load_shard_from_db(conf):
     #TODO: load shard from cache if exists 
-    shards = database.load_shard(conf['shard_db_hostname'])
+    shards = database.load_shard(conf)
 
     return shards
 

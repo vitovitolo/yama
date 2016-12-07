@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import config
 import redis
 
 
@@ -15,13 +14,12 @@ def connect_cache(cache_hostname):
 def hash_url(url):
     return str(str(url['hostname'])+str(url['port'])+str(url['path']))
 
-def write(url, cache_hostname):
+def write(url, cache_hostname, conf):
     """
     write url in cache before checking its size
     set URL_TTL second TTL in cache for each url
     if cache is full, doesnt write url
     """
-    conf = config.get_config()
     #Max number of URL to set in cache
     MAX_URLS=conf['cache_max_urls']
     #Seconds
@@ -74,9 +72,9 @@ def exists(url, cache_hostname):
     else:
         return False
 
-def update_url(url, cache_hostname, operation):
+def update_url(url, cache_hostname, operation, conf):
     if operation == "add":
-        return write(url, cache_hostname)
+        return write(url, cache_hostname, conf)
     elif operation == "del":
         return delete(url, cache_hostname)
     else:

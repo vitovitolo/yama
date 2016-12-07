@@ -1,0 +1,32 @@
+#!/bin/bash
+name="$1"
+if [ -z "$1" ]; then
+	echo "Usage: $0 <name>"
+	exit 1
+fi
+CFGFILE="/etc/haproxy/haproxy_$name.cfg"
+if ! [ -e "$CFGFILE" ]; then
+	echo "haproxy $name doesn't exist"
+	exit 1
+fi
+PIDFILE=`cat "$CFGFILE" | grep '\s*pidfile\s*' | sed 's/\s*pidfile\s*//' | sed 's/\s*//g'`
+if [ -z "$PIDFILE" ]; then
+	echo "haproxy $name doesn't specify a PIDFILE"
+	exit 1;
+fi
+if ! [ -e "$PIDFILE" ]; then
+	echo "haproxy $name not running here"
+	exit 1
+fi
+PID=`cat "$PIDFILE"`
+if [ -z "$PID" ]; then
+	echo "haproxy $name not running here"
+	exit 1
+fi
+ps -p "$PID" | grep "haproxy"
+if [ $? != 0 ]; then
+	echo "haproxy $name not running here"
+	exit 1
+fi
+/usr/sbin/haproxy -f "$CFGFILE" -p "$PIDFILE" -D  -sf $PID
+exit $?

@@ -35,4 +35,4 @@ puppet apply --modulepath puppet/modules/ puppet/manifests/load_balancer.pp
 DESIGN
 ===
 
-[Read the sholw design](docs/design.md)
+[Read the design](docs/design.md)

@@ -2,11 +2,13 @@ define supervisor::program (
 	$programname = $name,
 	$program_path = "/tmp",
 	$program_cmd = "/bin/true",
-	$program_log_path = "/var/log/${programname}",
+	$program_log_path = "/var/log/${name}",
 )
 {
 	include supervisor
 
+	$program_log_stderr = "${program_log_path}/${programname}_error.log"
+	$program_log_stdout = "${program_log_path}/${programname}.log"
 
 	service {"supervisor_$programname":
 		ensure    => "running",

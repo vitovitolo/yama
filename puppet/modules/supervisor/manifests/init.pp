@@ -4,6 +4,8 @@ class supervisor
 	$enable = true,
 )
 {
+	include apt
+
 	package {"supervisor":
 		ensure  => "installed",
 		require => Exec["apt-get-update"],

@@ -1,0 +1,10 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: "/etc/puppet/hieradata"
+:hierarchy:
+  - "%{::hostname}.%{::environment}"
+  - "%{::hostname}"
+  - "%{::environment}"
+:logger: console

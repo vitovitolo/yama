@@ -29,38 +29,38 @@ class mysqlserver
 	$mysql_server_id = $server_id
 	$mysql_server_count = $server_count
 	#common
-	package{"mysql-server":
+	package{["mysql-server-5.5", "mysql-client-5.5"]:
 		ensure  =>"installed",
-		require => Package["mysql-client"],
 	}
+	file {"/etc/mysql":
+		ensure => "directory",
+		mode   => 755,
+		owner  => "root",
+		group  => "root",
+		require => Package["mysql-server-5.5"],
+
+	}
+	file {"/var/lib/mysql":
+		ensure  => "directory",
+		mode    => 700,
+		owner   => "mysql",
+		group   => "root",
+		require => Package["mysql-server-5.5"],
+	}
+
 	file {"/etc/mysql/my.cnf":
 		ensure  => "present",
 		path    => "/etc/mysql/my.cnf",
 		content => template($template),
-		require => Package["mysql-server"],
+		require => [Package["mysql-server-5.5"],File["/etc/mysql"],File["/var/lib/mysql"]],
 	}
 	service{"mysql":
-		require    => Package["mysql-server"],
+		require    => Package["mysql-server-5.5"],
 		ensure     => "running",
 		enable     => true,
 		hasrestart => true,
 		hasstatus  => true,
 		restart    => "/etc/init.d/mysql reload",
-	}
-	#MYSQL ROOT PASSWORD
-	exec{"mysqladmin":
-		path    => ['/usr/bin', '/usr/sbin'],
-		command => "mysqladmin -u${mysql_user} password \"${mysql_pass}\" && echo /dev/null > /root/.mysqladmin.passchanged",
-		require => Package["mysql-server"],
-		creates => "/root/.mysqladmin.passchanged",
-	}
-	file {"/root/.my.cnf":
-		ensure  => "file",
-		mode    => 0640,
-		owner   => "root",
-		group   => "root",
-		content => template("mysqlserver/root.my.cnf.erb"),
-		require => Exec["mysqladmin"],
 	}
 	file {"mysql-clustermaster.sh":
 		path    => "/root/mysql-clustermaster.sh",

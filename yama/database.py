@@ -94,7 +94,7 @@ def load_shard(conf):
 
     shards = {}
 
-    db = connect_db(conf['db_hostname'], conf)
+    db = connect_db(conf['shard_db_hostname'], conf)
     if db == None:
         print "Error connecting database. Exiting.."
         return False

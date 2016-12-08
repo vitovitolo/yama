@@ -1,0 +1,60 @@
+CREATE DATABASE IF NOT EXISTS `<%=@main_db_name%>` DEFAULT CHARACTER SET = 'utf8';
+
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s0` ( 
+	  `id` int(1) NOT NULL AUTO_INCREMENT,
+	  `hostname` varchar(255) NOT NULL,
+	  `port` smallint(1) unsigned NOT NULL DEFAULT 80,
+	  `path` varchar(2048) NOT NULL,
+	  `is_malware` boolean NOT NULL DEFAULT TRUE,
+	  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ; 
+
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s1` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s2` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s3` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s4` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s5` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s6` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s7` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s8` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s9` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s10` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s11` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s12` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s13` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s14` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s15` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s16` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s17` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s18` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s19` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s20` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s21` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s22` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s23` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s24` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s25` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s26` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s27` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s28` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s29` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s30` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s31` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s32` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s33` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s34` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s35` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s36` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s37` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s38` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s39` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s40` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s41` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s42` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s43` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s44` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s45` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s46` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s47` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s48` LIKE `<%=@main_db_name%>`.`url_s0` ;
+CREATE TABLE IF NOT EXISTS `<%=@main_db_name%>`.`url_s49` LIKE `<%=@main_db_name%>`.`url_s0` ;

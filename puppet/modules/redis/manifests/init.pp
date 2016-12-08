@@ -5,6 +5,8 @@ class redis
 	$ulimit = "",
 )
 {
+	include sysctl
+
 	$redis_bind_address=$bind_address
 	$redis_bind_port=$bind_port
 	package {"redis-server":

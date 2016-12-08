@@ -32,6 +32,14 @@ puppet apply --modulepath puppet/modules/ puppet/manifests/load_balancer.pp
 ```
 
 
+### whole system (recomended for testing)
+
+Install HAProxy load balancer with two yama servers configured. Install MySQL server with yama SQL schemas and redis as a cache.
+
+```
+puppet apply --modulepath puppet/modules/ puppet/manifests/all.pp
+```
+
 DESIGN
 ===
 

@@ -26,6 +26,7 @@ def write(url, cache_hostname, conf):
     URL_TTL=conf['cache_url_ttl']
 
     cache_db='db0'
+    cache_full = True
     #url dict key validation
     if 'is_malware' not in url:
         url['is_malware'] = 'True'
@@ -58,8 +59,10 @@ def write(url, cache_hostname, conf):
 
 def delete(url, cache_hostname):
     conn = connect_cache(cache_hostname)
+    output = False
     if conn is not None:
-        return conn.delete(hash_url(url))
+        output = conn.delete(hash_url(url))
+        return output
     else:
         return False
 

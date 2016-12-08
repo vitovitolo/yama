@@ -3,7 +3,11 @@ define yama::server
 	$nodename = $name,
 	$ip = "0.0.0.0",
 	$port = "8080",
-	$config_file = ""
+	$shard_db_name = "yama",
+	$shard_db_hostname = "localhost",
+	$main_db_name = "yama",
+	$cache_max_urls = "5000",
+	$cache_url_ttl = "100",
 )
 {
 	include yama

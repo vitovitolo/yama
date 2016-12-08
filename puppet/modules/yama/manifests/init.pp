@@ -4,9 +4,14 @@ class yama
 {
 	include supervisor
 
-	package { [ "python-bottle","python-mysqldb", "python-yaml" ]:
+	package { [ "python-bottle","python-mysqldb", "python-yaml", "python-pip" ]:
 		ensure  => "installed",
 		require => Exec["apt-get-update"],
+	}
+	package { "redis":
+		ensure   => "installed",
+		require  => Package["python-pip"],
+		provider => "pip",
 	}
 	
 	file {"/opt/yama":
@@ -45,5 +50,4 @@ class yama
 		group  => "root",
 		mode   => 755,
 	}
-
 }

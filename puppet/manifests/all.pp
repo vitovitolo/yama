@@ -63,13 +63,11 @@ node "default" {
 		user      => $shard_db_username,
 		password  => $shard_db_passwd,
 		db        => $shard_db_name,
-		root_pass => "root",
 	}
 	mysqlserver::grant {"yama_urls":
 		user      => $main_db_username,
 		password  => $main_db_passwd,
 		db        => $main_db_name,
-		root_pass => "root",
 	}
 	class {"redis":	}
 }

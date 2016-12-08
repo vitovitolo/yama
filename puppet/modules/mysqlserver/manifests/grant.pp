@@ -6,6 +6,7 @@ define mysqlserver::grant (
 	$root_pass = "root",
 )
 {
+	include mysqlserver
 	$grant_user = $user
 	$grant_password = $password
 	$grant_db = $db
@@ -26,5 +27,6 @@ define mysqlserver::grant (
 		command   => "mysql -uroot -p$root_pass < ${mysql_grant_file}-${name}",
 		path      => ["/usr/bin", "/usr/sbin", "/bin", "/sbin"],
 		subscribe => File["$mysql_grant_file-${name}"],
+		require => Class["mysqlserver"],
 	}
 }

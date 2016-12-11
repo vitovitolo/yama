@@ -188,7 +188,8 @@ If yama server reaches the request per second limit you have to add one more yam
 
 ### Database read limit
 The solution for reaches the read per second limit in the database is add more Database slave nodes in each Datastore Cluster.
-Database write limit
+
+### Database write limit
 This scenario is more complex but not impossible to board. If the system reaches the write limit, the solution is to divide the Master Cluster in shards. This project doesn’t provide a out-of-the box solution if the system reaches this limit.
 
 ###Shard size

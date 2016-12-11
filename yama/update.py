@@ -14,7 +14,13 @@ def update_url(url, hostname, table_name, operation, conf):
     add or delete URL from database AND cache system
     If one of them fails, returns { 'status': 'False' }
     """
-    db_status = database.update_url(url, hostname, table_name, operation, conf)
+    # Write to different host than read
+    if operation == "add":
+        db_hostname = conf['write_db_hostname']
+    else:
+        db_hostname = hostname
+
+    db_status = database.update_url(url, db_hostname, table_name, operation, conf)
     if not db_status:
         return compose_add_response(db_status)
     cache_status = cache.update_url(url, hostname, operation, conf)

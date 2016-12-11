@@ -7,9 +7,9 @@ host: 0.0.0.0
 # Port to bind
 port: 80
 
-#### MAIN DATABASE #####
+#### URL DATABASE #####
 # DB hostname
-db_hostname: 'localhost'
+write_db_hostname: 'localhost'
 
 # DB username
 db_username: 'yama'

@@ -5,6 +5,7 @@ node "default" {
 	$shard_db_username = "yama"
 	$shard_db_passwd = "yama"
 
+	$write_db_hostname = "localhost"
 	$main_db_name = "yama"
 	$main_db_username = "yama"
 	$main_db_passwd = "yama"
@@ -16,8 +17,14 @@ node "default" {
 	yama::server {"node1":
 		ip 	=> "localhost",
 		port    => "8080",
-		shard_db_name => $shard_db_name,
+		write_db_hostname => $write_db_hostname,
+		main_db_username => $main_db_username,
+		main_db_passwd => $main_db_passwd,
 		main_db_name => $main_db_name,
+		shard_db_hostname => $shard_db_hostname,
+		shard_db_username => $shard_db_username,
+		shard_db_passwd => $shard_db_passwd,
+		shard_db_name => $shard_db_name,
 		cache_max_urls => $cache_max_urls,
 		cache_url_ttl => $cache_url_ttl,
 		require => [Mysqlserver::Applysql['shards'],Mysqlserver::Applysql['urls'],Class['redis']],
@@ -25,8 +32,14 @@ node "default" {
 	yama::server {"node2":
 		ip 	=> "localhost",
 		port   => "8081",
-		shard_db_name => $shard_db_name,
+		write_db_hostname => $write_db_hostname,
+		main_db_username => $main_db_username,
+		main_db_passwd => $main_db_passwd,
 		main_db_name => $main_db_name,
+		shard_db_hostname => $shard_db_hostname,
+		shard_db_username => $shard_db_username,
+		shard_db_passwd => $shard_db_passwd,
+		shard_db_name => $shard_db_name,
 		cache_max_urls => $cache_max_urls,
 		cache_url_ttl => $cache_url_ttl,
 		require => [Mysqlserver::Applysql['shards'],Mysqlserver::Applysql['urls'],Class['redis']],

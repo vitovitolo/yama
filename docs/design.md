@@ -164,9 +164,9 @@ First of all, I decided to use single-thread web service in order to scale it wi
 Each Yama node are almost stateless. They only need the Shard Map of the entire cluster. This information is loaded on startup from an external database. I decided to put in memory this structure for performance reasons.
 
 
-The next layer will be the Datastore Clusters. Each cluster contains N datastore partition with a database and a memory cache. In front each partition there should be N load balancers. This load balancers uses round-robin to distribute the request and scale the read operations between the datastore partition node. Each cluster contains one data partition and could be replicated the information from the Master Cluster. 
+The next layer will be the Datastore Clusters. Each cluster contains N datastore partition with a database and a memory cache. In front of each partition there should be N load balancers. This load balancers uses round-robin to distribute the request and scale the read operations between the datastore partition node. Each cluster contains one data partition and could be replicated the information from the Master Cluster. 
 
->TODO: diagram
+![alt text](https://github.com/vitovitolo/docs/architecture.png "Architecture")
 
 
 This is the flow for each request asking for a URL

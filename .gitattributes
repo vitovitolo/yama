@@ -1,0 +1,10 @@
+* text=auto
+
+*.pp text
+*.py text
+*.yaml text
+*.conf text
+*.erb text
+
+
+*.png binary

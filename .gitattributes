@@ -4,7 +4,7 @@
 *.py linguist-language=python
 *.yaml text
 *.conf text
-*.erb text
+*.erb linguist-language=HTML+ERB
 *.md text
 *.txt text
 *.sh text

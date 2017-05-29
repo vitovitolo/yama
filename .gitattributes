@@ -10,3 +10,5 @@
 *.sh text
 
 *.png binary
+
+docs/* linguist-documentation

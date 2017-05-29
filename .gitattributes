@@ -5,6 +5,8 @@
 *.yaml text
 *.conf text
 *.erb text
-
+*.md text
+*.txt text
+*.sh text
 
 *.png binary

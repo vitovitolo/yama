@@ -1,7 +1,7 @@
 * text=auto
 
 *.pp text
-*.py text
+*.py linguist-language=python
 *.yaml text
 *.conf text
 *.erb text
